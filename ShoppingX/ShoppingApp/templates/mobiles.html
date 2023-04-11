@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mobile{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="list-group">
+                    <a href="{% url 'mobile' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">All Mobile</a>
+                    <a href="{% url 'mobiledata' 'Asus' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">Asus</a>
+                    <a href="{% url 'mobiledata' 'Apple' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">Apple</a>
+                    <a href="{% url 'mobiledata' 'Samsung' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">Samsung</a>
+                    <a href="{% url 'mobiledata' 'below' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">Below 100000</a>
+                    <a href="{% url 'mobiledata' 'above' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">above 100000</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for product in mobiles %}
+                        <div class="col-4">
+                            <div class="card">
+                                <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                    <p class="card-text">Selling Price - {{ product.selling_price }}</p>
+                                    <p class="card-text">Discounted Price - {{ product.discounted_price }}</p>
+                                    <a href="#" class="btn btn-primary">Add To Cart</a>
+                                    <a href="{% url 'product_details' product.id %}" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

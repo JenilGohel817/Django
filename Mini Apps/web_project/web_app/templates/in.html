@@ -1,0 +1,6 @@
+<a href="{% url 'index'%}">View</a>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Add</button>
+</form>

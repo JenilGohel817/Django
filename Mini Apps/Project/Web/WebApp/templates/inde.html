@@ -1,0 +1,12 @@
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button type="submit">Add</button>
+</form>
+
+{% for x in i %}
+<div>
+  {{ x.name }} {{ x.photo }} {{ x.gender }}
+  <a href="{% url 'update' x.id %}">Edit</a>
+  <a href="{% url 'delete' x.id %}">Delete</a>
+</div>
+{% endfor %}

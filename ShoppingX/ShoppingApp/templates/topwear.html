@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mobile{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="list-group">
+                    <a href="{% url 'topwear' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">All Topwear</a>
+                    <a href="{% url 'topweardata' 'below' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">Below 1000</a>
+                    <a href="{% url 'topweardata' 'above' %}" class="list-group-item list-group-item-action"
+                       aria-current="true">above 1000</a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="row">
+                    {% for product in topwears %}
+                        <div class="col-4">
+                            <div class="card">
+                                <img src="{{ product.product_image.url }}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.title }}</h5>
+                                    <p class="card-text">Selling Price - {{ product.selling_price }}</p>
+                                    <p class="card-text">Discounted Price - {{ product.discounted_price }}</p>
+                                    <a href="#" class="btn btn-primary">Add To Cart</a>
+                                    <a href="{% url 'product_details' product.id %}" class="btn btn-primary">View</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

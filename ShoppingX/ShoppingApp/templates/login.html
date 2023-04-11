@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card p-3" style="width: 350px;margin: 0 auto;">
+            {% for fm in form %}
+                <div class="form-group">
+                    {{ fm.label_tag }}{{ fm }}<small class="text-danger">{{ fm.errors|striptags }}</small>
+                </div>
+            {% endfor %}
+            <h4 class="mb-3 border-bottom pb-3">Login</h4>
+            <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small>
+            <br>
+            <input value="Login" type="submit" class="btn btn-primary mt-3">
+            <br>
+            <div class="text-center text-primary fw-bold">
+                <small>New to ShoppingX ? <a href="{% url 'signup' %}">Create a Account</a></small>
+            </div>
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{ error }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </form>
+
+{% endblock %}

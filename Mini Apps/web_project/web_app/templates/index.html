@@ -1,0 +1,53 @@
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %} {{ form.as_p }}
+  <button id="submit" type="submit">Add</button>
+</form>
+
+<table>
+  <tr>
+    <th>----- name -----</th>
+    <th>----- email -----</th>
+    <th>----- password -----</th>
+    <th>----- picture -----</th>
+    <th>----- gender -----</th>
+  </tr>
+  {% for x in i %}
+  <tr>
+    <td>{{ x.name }}</td>
+    <td>{{ x.email }}</td>
+    <td>{{ x.password }}</td>
+    <td><img src="{{ x.picture.url }}" /></td>
+    <td>{{ x.gender }}</td>
+    <td><a href="{% url 'update' x.id %}">Edit</a></td>
+    <td></td>
+    <td><a href="{% url 'delete' x.id %}">Delete</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<script>
+  <script>
+    $(document).ready(function () {
+        // catch the form's submit event
+        $('#submit').submit(function () {
+            // create an AJAX call
+            $.ajax({
+                data: $(this).serialize(), // get the form data
+                type: $(this).attr('method'), // GET or POST
+                url: "{% url 'index' %}",
+                // on success
+                success: function (response) {
+                    alert("Thankyou for reaching us out " + response.name);
+                },
+                // on error
+                error: function (response) {
+                    // alert the error if any error occured
+                    alert(response.responseJSON.errors);
+                    console.log(response.responseJSON.errors)
+                }
+            });
+            return false;
+        });
+    })
+</script>
+</script>

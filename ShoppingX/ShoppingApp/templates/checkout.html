@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h5 class="mb-3">Order Summary</h5>
+            {% for item in cart_itm %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">{{ item.product.title }}</p>
+                        <p class="card-text">quantity - {{ item.quantity }}</p>
+                        <p class="card-text fw-bold">Price - {{ item.total_cost }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+            <p>Total Cost = {{ tempamount }}</p>
+        </div>
+        <div class="col-sm-6">
+            <h5 class="mb-3">Select Shipping Address</h5>
+            {% for ad in add %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4>{{ ad.name }}</h4>
+                        <p class="card-text">{{ ad.locality }}</p>
+                        <p class="card-text">{{ ad.state }}, {{ ad.city }}, {{ ad.zipcode }}</p>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Select Address : {{ forloop.counter }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            <a href="{% url 'index' %}" class="btn float-end btn-primary">continue</a>
+        </div>
+    </div>
+{% endblock %}

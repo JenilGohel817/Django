@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="card p-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Amount</h5>
+                </div>
+                <div class="d-flex px-3">
+                    <h6 class="me-auto">Amount</h6>
+                    <h6 class="">Rs. <span id="amount">{{ amount }}</span></h6>
+                </div>
+                <div class="d-flex border-bottom pb-3 px-3">
+                    <h6 class="me-auto">Shipping Charges</h6>
+                    <h6 class="">Rs. 70.00</h6>
+                </div>
+                <div class="d-flex p-3">
+                    <h4 class="me-auto">Total</h4>
+                    <h4 class="">Rs. <span id="totalamount">{{ totalamount }}</span></h4>
+                </div>
+                <a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</a>
+            </div>
+        </div>
+        {% for cart in carts %}
+            <div class="col-4 my-3">
+                <div class="card">
+             <img src="{{ cart.product.product_image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h2 class="card-title border-bottom pb-2">{{ cart.product.title }}<span
+                                class="fs-5 mt-2 float-end mb-3">{{ cart.product.selling_price }}</span></h2>
+                        <p class="mt-2 mb-2 text-muted">{{ cart.product.discription }}</p>
+                        <p class="mt-2 mb-2 text-muted">Quantity - {{ cart.quantity }}</p>
+                        <div class="d-flex align-items-center pt-2">
+                            <div class="img-up-down me-auto">
+
+                                <a class="btn btn-primary minus-cart" pid="{{ cart.product.id }}"><i>-</i></a>
+                                <a class="btn btn-primary plus-cart" pid="{{ cart.product.id }}"><i>+</i></a>
+                                <a class="btn btn-primary p-3">{{ cart.quantity }}</a>
+                            </div>
+                            <a id="remove-cart" href="#" pid="{{ cart.product.id }}" class="btn btn-primary">Remove
+                                item</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        $('.plus-cart').click(function () {
+            var id = $(this).attr("pid").toString();
+            var eml = this.parentNode.children[2]
+            $.ajax({
+                type: "GET",
+                url: " /pluscart",
+                data: {
+                    prod_id: id
+                    ,
+                },
+                success: function (data) {
+                    eml.innerText = data.quantity
+                    document.getElementById("amount").innerText = data.amount
+                    document.getElementById("totalamount").innerText = data.totalamount
+                    console.log(data)
+                }
+            })
+        })
+
+        $('.minus-cart').click(function () {
+            var id = $(this).attr("pid").toString();
+            var eml = this.parentNode.children[2]
+            $.ajax({
+                type: "GET",
+                url: " /minuscart",
+                data: {
+                    prod_id: id
+                    ,
+                },
+                success: function (data) {
+                    eml.innerText = data.quantity
+                    document.getElementById("amount").innerText = data.amount
+                    document.getElementById("totalamount").innerText = data.totalamount
+                    console.log(data)
+                }
+            })
+        })
+
+         $('#remove-cart').click(function () {
+            var id = $(this).attr("pid").toString();
+            var eml = this
+            $.ajax({
+                type: "GET",
+                url: " /removecart",
+                data: {
+                    prod_id: id
+                    ,
+                },
+                success: function (data) {
+                    document.getElementById("amount").innerText = data.amount
+                    document.getElementById("totalamount").innerText = data.totalamount
+                     eml.parentNode.parentNode.parentNode.remove()
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

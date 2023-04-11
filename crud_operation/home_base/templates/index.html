@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <div class="row justify-content-center">
+            <div class="col-lg-5 col-md-5 col-12 m-3">
+                <a href="{% url 'c_add' %}" class="btn btn-success w-100 p-3">Class Base</a>
+            </div>
+            <div class="col-lg-5 col-md-5 col-12 m-3">
+                <a href="{% url 'f_add' %}" class="btn btn-success w-100 p-3">Function Base</a>
+            </div>
+            <div class="col-lg-5 col-md-5 col-12 m-3">
+                <a href="" class="btn btn-success w-100 p-3">Add Blogs</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
