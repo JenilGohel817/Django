@@ -1,113 +1,151 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>ShoppingX | {% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-</head>
-<style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/index.css' %}"
+    />
+  </head>
+  <style>
     img {
-        object-fit: contain;
+      object-fit: contain;
     }
-</style>
-{% block css %}{% endblock %}
-<body>
+  </style>
+  {% block css %}{% endblock %}
+  <body>
+    <div class="container">
+      <header>
+        <nav
+          class="navbar m-3 rounded navbar-expand-lg p-3 navbar-light bg-light"
+        >
+          <a class="navbar-brand" href="#">ShoppingX</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-<div class="container">
-    <header>
-        <nav class="navbar m-3 rounded navbar-expand-lg p-3 navbar-light bg-light">
-            <a class="navbar-brand" href="#">ShoppingX</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'index' %}">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-two" role="button"
-                           data-bs-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Fashion
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown-two">
-                            <a class="dropdown-item" href="{% url 'topwear' %}">Top Wear</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'bottomwear' %}">Bottom Wear</a>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-one" role="button"
-                           data-bs-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">
-                            Electronics
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown-one">
-                            <a class="dropdown-item" href="{% url 'mobile' %}">Mobile</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Leptop</a>
-                        </div>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ms-auto">
-                    {% if request.user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown-two" role="button"
-                               data-bs-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                {{ request.user }}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown-two">
-                                <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'orders' %}">Order</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'change_password' %}">Change Password</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'login' %}">Login</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'signup' %}">Signup</a>
-                        </li>
-                    {% endif %}
-                </ul>
-                <div class="my-2">
-                    <a href="{% url 'showcart' %}">
-                        <img class="cart-icon" src="{% static 'images/bag.png' %}">
-                    </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown-two"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Fashion
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown-two">
+                  <a class="dropdown-item" href="{% url 'topwear' %}"
+                    >Top Wear</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'bottomwear' %}"
+                    >Bottom Wear</a
+                  >
                 </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown-one"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Electronics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown-one">
+                  <a class="dropdown-item" href="{% url 'mobile' %}">Mobile</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Leptop</a>
+                </div>
+              </li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+              {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown-two"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {{ request.user }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown-two">
+                  <a class="dropdown-item" href="{% url 'profile' %}"
+                    >Profile</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'orders' %}">Order</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'change_password' %}"
+                    >Change Password</a
+                  >
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                </div>
+              </li>
+              {% else %}
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+              </li>
+              {% endif %}
+            </ul>
+            <div class="my-2">
+              <a href="{% url 'showcart' %}">
+                <img class="cart-icon" src="{% static 'images/bag.png' %}" />
+              </a>
             </div>
+          </div>
         </nav>
-    </header>
-</div>
-
-<div class="container">
-    <div class="m-3">
-        {% block content %}{% endblock %}
+      </header>
     </div>
-</div>
 
-<div class="container">
-    <footer class="m-3">
+    <div class="container">
+      <div class="m-3">{% block content %} {% endblock %}</div>
+    </div>
+
+    <div class="container">
+      <footer class="m-3">
         <div class="card text-center">
-            <div class="card-body">
-                ShoppingX
-            </div>
+          <div class="card-body">ShoppingX</div>
         </div>
-    </footer>
-</div>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-{% block js %}{% endblock %}
-</body>
+      </footer>
+    </div>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block js %}{% endblock %}
+  </body>
 </html>
